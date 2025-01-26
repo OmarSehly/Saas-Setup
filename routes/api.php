@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Spatie\Multitenancy\Http\Middleware\NeedsTenant;
 use Spatie\Multitenancy\Http\Middleware\InitializeTenancyByPath;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MigrationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,3 +36,6 @@ Route::prefix('/{tenantSlug}')
             ->name('tenant.profile');
     });
         Route::post('/check', [App\Http\Controllers\LoginController::class, 'check']);
+
+        Route::post('/tenants/migrate', [MigrationController::class, 'runMigrations']);
+        Route::post('/tenant/create', [MigrationController::class, 'createTenant']);
